@@ -34,16 +34,16 @@ This is then used for the website.
 
 ### Getting Sensor Data
 
-Modify `get_sensor.sh`, replace my sensors' IDs with yours.
+Modify `get_sensor.py`, replace my sensors' IDs with yours.
 As soon as you properly attached the sensors, you can find your sensors' IDs in folder `/sys/bus/w1/devices/`.
 You can define the sensors' IDs to whatever you like, you just have to make sure the webui takes the proper values later.
 
-Run the script once with `python3 get_sensors.sh`.
+Run the script once with `python3 get_sensor.py`.
 Once the script is started, it constantly checks for temperatures.
 
 ### Create a Service
 
-Using `get_Sensors.py` you can build a service. 
+Using `get_sensor.py` you can create a service. 
 Create the file `/etc/systemd/system/rpiheating.service` with this content:
 
 ```ini
@@ -90,7 +90,7 @@ npm intall -g serve # only once
 Copy the optimized build from `build/*` to `/var/www/html`.
 Browse to http://heizung.
 
-**Important**: If you changed the sensor IDs in the `get_sensors.py`, you have to modify them in the UI as well.
+**Important**: If you changed the sensor IDs in the `get_sensor.py`, you have to modify them in the UI as well.
 
 # Open Topics
 * Put values into a database
