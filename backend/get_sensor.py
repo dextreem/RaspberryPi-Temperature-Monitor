@@ -9,6 +9,18 @@
 
 import time, sys
 import json
+import psycopg2
+from psycopg2 import sql
+import datetime
+
+# Database connection parameters
+db_params = {
+    'dbname': 'grafana',
+    'user': 'grafana',
+    'password': 'grafana',
+    'host': 'localhost',  # use 'postgres' if connecting within the Docker network
+    'port': 5432
+}
 
 # Set sensor base path, filename and sensorts themselves
 # [sensor_basis]/sensors[x]/sensor_file
@@ -57,6 +69,64 @@ def readTempLines(sensorName) :
         tempCelsius = int(round(float(tempData) / 1000.0))
         return tempCelsius
 
+def write_to_database(temperatures):
+    try:
+        # Connect to the PostgreSQL database
+        conn = psycopg2.connect(**db_params)
+        cur = conn.cursor()
+
+        # Create table if not exists
+        create_table_query = '''
+        CREATE TABLE IF NOT EXISTIS heizung_data (
+            id SERIAL PRIMARY KEY,
+            timestamp TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+            p11 FLOAT,
+            p12 FLOAT,
+            p13 FLOAT,
+            p14 FLOAT,
+            p21 FLOAT,
+            p22 FLOAT,
+            p23 FLOAT,
+            p24 FLOAT,
+            hk FLOAT,
+            hv FLOAT,
+            hr FLOAT,
+            hu FLOAT,
+            ok FLOAT,
+            ov FLOAT,
+            "or" FLOAT,
+            kv FLOAT,
+            kr FLOAT
+        );
+        '''
+        cur.execute(create_table_query)
+        conn.commit()
+
+        temperatures["timestamp"] = datetime.now()
+
+        # Insert data
+        insert_query = '''
+        INSERT INTO heizung_data (
+            p11, p12, p13, p14, 
+            p21, p22, p23, p24, 
+            hk, hv, hr, hu, 
+            ok, ov, "or", kv, kr,
+            timestamp
+        ) VALUES (
+            %s, %s, %s, %s,
+            %s, %s, %s, %s,
+            %s, %s, %s, %s,
+            %s, %s, %s, %s, %s,
+            %s
+        )
+        '''
+        cur.execute(insert_query, temperatures)
+        conn.commit()
+
+        print("Data inserted successfully")
+    except Exception as error:
+        print(f"Error: {error}")
+
 try:
     while True :
         try:
@@ -67,6 +137,9 @@ try:
             with open(result_output, 'w') as fp:
                 json.dump(temperatures, fp)
             print(temperatures)
+
+
+
         except Exception as e:
             print(str(e))
             sys.exit(1)
