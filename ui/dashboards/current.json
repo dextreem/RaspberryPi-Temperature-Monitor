@@ -18,13 +18,13 @@
     "editable": true,
     "fiscalYearStartMonth": 0,
     "graphTooltip": 0,
-    "id": 1,
+    "id": 5,
     "links": [],
     "panels": [
         {
             "datasource": {
                 "type": "grafana-postgresql-datasource",
-                "uid": "edqbplo4dkdtsd"
+                "uid": "edr15osbhy60we"
             },
             "fieldConfig": {
                 "defaults": {
@@ -73,16 +73,17 @@
                 "sizing": "auto",
                 "valueMode": "color"
             },
-            "pluginVersion": "10.4.3",
+            "pluginVersion": "11.1.0",
             "targets": [
                 {
                     "datasource": {
                         "type": "grafana-postgresql-datasource",
-                        "uid": "edqbplo4dkdtsd"
+                        "uid": "edr15osbhy60we"
                     },
-                    "editorMode": "builder",
+                    "editorMode": "code",
                     "format": "table",
-                    "rawSql": "SELECT p11 AS \"Unten\", p12 AS \"Mitte 1\", p13 AS \"Mitte 2\", p14 AS \"Oben\" FROM heizung_data LIMIT 50 ",
+                    "rawQuery": true,
+                    "rawSql": "SELECT p14 AS \"Oben\", p13 AS \"Mitte 2\", p12 AS \"Mitte 1\", p11 AS \"Unten\" FROM heizung_data LIMIT 50 ",
                     "refId": "A",
                     "sql": {
                         "columns": [
@@ -146,7 +147,7 @@
         {
             "datasource": {
                 "type": "grafana-postgresql-datasource",
-                "uid": "edqbplo4dkdtsd"
+                "uid": "edr15osbhy60we"
             },
             "fieldConfig": {
                 "defaults": {
@@ -195,16 +196,17 @@
                 "sizing": "auto",
                 "valueMode": "color"
             },
-            "pluginVersion": "10.4.3",
+            "pluginVersion": "11.1.0",
             "targets": [
                 {
                     "datasource": {
                         "type": "grafana-postgresql-datasource",
-                        "uid": "edqbplo4dkdtsd"
+                        "uid": "edr15osbhy60we"
                     },
-                    "editorMode": "builder",
+                    "editorMode": "code",
                     "format": "table",
-                    "rawSql": "SELECT p21 AS \"Unten\", p22 AS \"Mitte 1\", p23 AS \"Mitte 2\", p24 AS \"Oben\" FROM heizung_data LIMIT 50 ",
+                    "rawQuery": true,
+                    "rawSql": "SELECT p24 AS \"Oben\", p23 AS \"Mitte 2\", p22 AS \"Mitte 1\", p21 AS \"Unten\" FROM heizung_data LIMIT 50 ",
                     "refId": "A",
                     "sql": {
                         "columns": [
@@ -268,7 +270,7 @@
         {
             "datasource": {
                 "type": "grafana-postgresql-datasource",
-                "uid": "edqbplo4dkdtsd"
+                "uid": "edr15osbhy60we"
             },
             "fieldConfig": {
                 "defaults": {
@@ -317,20 +319,21 @@
                 "sizing": "auto",
                 "valueMode": "color"
             },
-            "pluginVersion": "10.4.3",
+            "pluginVersion": "11.1.0",
             "targets": [
                 {
                     "datasource": {
                         "type": "grafana-postgresql-datasource",
-                        "uid": "edqbplo4dkdtsd"
+                        "uid": "edr15osbhy60we"
                     },
                     "editorMode": "builder",
                     "format": "table",
-                    "rawSql": "SELECT hk, hv, hr, hu FROM heizung_data LIMIT 50 ",
+                    "rawSql": "SELECT hk AS \"Kessel\", hv AS \"Vorlauf\", hr AS \"Rücklauf\", hu AS \"Übertemperatur\" FROM heizung_data LIMIT 50 ",
                     "refId": "A",
                     "sql": {
                         "columns": [
                             {
+                                "alias": "\"Kessel\"",
                                 "parameters": [
                                     {
                                         "name": "hk",
@@ -340,6 +343,7 @@
                                 "type": "function"
                             },
                             {
+                                "alias": "\"Vorlauf\"",
                                 "parameters": [
                                     {
                                         "name": "hv",
@@ -349,6 +353,7 @@
                                 "type": "function"
                             },
                             {
+                                "alias": "\"Rücklauf\"",
                                 "parameters": [
                                     {
                                         "name": "hr",
@@ -358,6 +363,7 @@
                                 "type": "function"
                             },
                             {
+                                "alias": "\"Übertemperatur\"",
                                 "parameters": [
                                     {
                                         "name": "hu",
@@ -380,13 +386,13 @@
                     "table": "heizung_data"
                 }
             ],
-            "title": "H",
+            "title": "Holzofen",
             "type": "bargauge"
         },
         {
             "datasource": {
                 "type": "grafana-postgresql-datasource",
-                "uid": "edqbplo4dkdtsd"
+                "uid": "edr15osbhy60we"
             },
             "fieldConfig": {
                 "defaults": {
@@ -435,20 +441,21 @@
                 "sizing": "auto",
                 "valueMode": "color"
             },
-            "pluginVersion": "10.4.3",
+            "pluginVersion": "11.1.0",
             "targets": [
                 {
                     "datasource": {
                         "type": "grafana-postgresql-datasource",
-                        "uid": "edqbplo4dkdtsd"
+                        "uid": "edr15osbhy60we"
                     },
                     "editorMode": "builder",
                     "format": "table",
-                    "rawSql": "SELECT kv, kr FROM heizung_data LIMIT 50 ",
+                    "rawSql": "SELECT kv AS \"Vorlauf\", kr AS \"Rücklauf\" FROM heizung_data LIMIT 50 ",
                     "refId": "A",
                     "sql": {
                         "columns": [
                             {
+                                "alias": "\"Vorlauf\"",
                                 "parameters": [
                                     {
                                         "name": "kv",
@@ -458,6 +465,7 @@
                                 "type": "function"
                             },
                             {
+                                "alias": "\"Rücklauf\"",
                                 "parameters": [
                                     {
                                         "name": "kr",
@@ -480,13 +488,13 @@
                     "table": "heizung_data"
                 }
             ],
-            "title": "k",
+            "title": "Heizkreis",
             "type": "bargauge"
         },
         {
             "datasource": {
                 "type": "grafana-postgresql-datasource",
-                "uid": "edqbplo4dkdtsd"
+                "uid": "edr15osbhy60we"
             },
             "fieldConfig": {
                 "defaults": {
@@ -535,20 +543,21 @@
                 "sizing": "auto",
                 "valueMode": "color"
             },
-            "pluginVersion": "10.4.3",
+            "pluginVersion": "11.1.0",
             "targets": [
                 {
                     "datasource": {
                         "type": "grafana-postgresql-datasource",
-                        "uid": "edqbplo4dkdtsd"
+                        "uid": "edr15osbhy60we"
                     },
                     "editorMode": "builder",
                     "format": "table",
-                    "rawSql": "SELECT ok, ov, \"or\" FROM heizung_data LIMIT 50 ",
+                    "rawSql": "SELECT ok AS \"Kessel\", ov AS \"Vorlauf\", \"or\" AS \"Rücklauf\" FROM heizung_data LIMIT 50 ",
                     "refId": "A",
                     "sql": {
                         "columns": [
                             {
+                                "alias": "\"Kessel\"",
                                 "parameters": [
                                     {
                                         "name": "ok",
@@ -558,6 +567,7 @@
                                 "type": "function"
                             },
                             {
+                                "alias": "\"Vorlauf\"",
                                 "parameters": [
                                     {
                                         "name": "ov",
@@ -567,6 +577,7 @@
                                 "type": "function"
                             },
                             {
+                                "alias": "\"Rücklauf\"",
                                 "parameters": [
                                     {
                                         "name": "\"or\"",
@@ -589,7 +600,7 @@
                     "table": "heizung_data"
                 }
             ],
-            "title": "O",
+            "title": "Ölheizung",
             "type": "bargauge"
         }
     ],
@@ -599,7 +610,7 @@
         "list": []
     },
     "time": {
-        "from": "now-6h",
+        "from": "now-5m",
         "to": "now"
     },
     "timepicker": {},

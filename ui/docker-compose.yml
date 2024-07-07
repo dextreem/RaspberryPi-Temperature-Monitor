@@ -3,6 +3,8 @@ version: "3.8"
 services:
   postgres:
     image: postgres:13
+    ports:
+      - "5432:5432"
     environment:
       POSTGRES_USER: grafana
       POSTGRES_PASSWORD: grafana
@@ -38,11 +40,15 @@ services:
     networks:
       - grafana-network
     entrypoint:
-      [
-        "/bin/sh",
-        "-c",
-        "until nslookup postgres; do echo waiting for postgres; sleep 2; done; /run.sh",
-      ]
+      - /bin/sh
+      - -c
+      - |
+        apk --no-cache add postgresql-client && \
+        until pg_isready -h postgres -p 5432 -U grafana; do
+          echo "Waiting for postgres at postgres:5432";
+          sleep 2;
+        done;
+        /run.sh
     restart: unless-stopped
 
 volumes:

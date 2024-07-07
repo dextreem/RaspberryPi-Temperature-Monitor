@@ -18,13 +18,13 @@
     "editable": true,
     "fiscalYearStartMonth": 0,
     "graphTooltip": 0,
-    "id": 2,
+    "id": 4,
     "links": [],
     "panels": [
         {
             "datasource": {
                 "type": "grafana-postgresql-datasource",
-                "uid": "edqbplo4dkdtsd"
+                "uid": "edr15osbhy60we"
             },
             "fieldConfig": {
                 "defaults": {
@@ -103,7 +103,7 @@
                 {
                     "datasource": {
                         "type": "grafana-postgresql-datasource",
-                        "uid": "edqbplo4dkdtsd"
+                        "uid": "edr15osbhy60we"
                     },
                     "editorMode": "builder",
                     "format": "table",
@@ -180,7 +180,7 @@
         "list": []
     },
     "time": {
-        "from": "now-30d",
+        "from": "now-6h",
         "to": "now"
     },
     "timepicker": {},

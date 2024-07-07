@@ -11,7 +11,7 @@ import time, sys
 import json
 import psycopg2
 from psycopg2 import sql
-import datetime
+from datetime import datetime
 
 # Database connection parameters
 db_params = {
@@ -77,7 +77,7 @@ def write_to_database(temperatures):
 
         # Create table if not exists
         create_table_query = '''
-        CREATE TABLE IF NOT EXISTIS heizung_data (
+        CREATE TABLE IF NOT EXISTS heizung_data (
             id SERIAL PRIMARY KEY,
             timestamp TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
             p11 FLOAT,
@@ -120,7 +120,8 @@ def write_to_database(temperatures):
             %s
         )
         '''
-        cur.execute(insert_query, temperatures)
+
+        cur.execute(insert_query, tuple(temperatures.values()))
         conn.commit()
 
         print("Data inserted successfully")
@@ -131,7 +132,7 @@ try:
     while True :
         try:
             temperatures = {}
-            for key, value in sensors.iteritems():
+            for key, value in sensors.items():
                 sensor = sensor_basis + value + sensor_file
                 temperatures[key] = str(readTempLines(sensor))
             with open(result_output, 'w') as fp:
