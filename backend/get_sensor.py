@@ -41,7 +41,7 @@ sensors ={
    "hv": "28-011927638231",
    "hr": "28-0119276ccfa0",
    "hu": "28-011927832884",
-   "ok": "28-0119278b4a64",
+   "ok": "28-01203271a0b9",
    "ov": "28-011927650fee",
    "or": "28-0119278b4a64",
    "kv": "28-0119276539ab",
@@ -59,15 +59,18 @@ def readTempSensor(sensorName) :
     return lines
 
 def readTempLines(sensorName) :
-    lines = readTempSensor(sensorName)
-    while lines[0].strip()[-3:] != 'YES':
-        time.sleep(0.2)
+    try: 
         lines = readTempSensor(sensorName)
-    temperaturStr = lines[1].find('t=')
-    if temperaturStr != -1 :
-        tempData = lines[1][temperaturStr+2:]
-        tempCelsius = int(round(float(tempData) / 1000.0))
-        return tempCelsius
+        while lines[0].strip()[-3:] != 'YES':
+            time.sleep(0.2)
+            lines = readTempSensor(sensorName)
+        temperaturStr = lines[1].find('t=')
+        if temperaturStr != -1 :
+            tempData = lines[1][temperaturStr+2:]
+            tempCelsius = int(round(float(tempData) / 1000.0))
+            return str(tempCelsius)
+    except:
+        return None
 
 def write_to_database(temperatures):
     try:
@@ -134,12 +137,10 @@ try:
             temperatures = {}
             for key, value in sensors.items():
                 sensor = sensor_basis + value + sensor_file
-                temperatures[key] = str(readTempLines(sensor))
+                temperatures[key] = readTempLines(sensor)
             with open(result_output, 'w') as fp:
                 json.dump(temperatures, fp)
             print(temperatures)
-
-
 
         except Exception as e:
             print(str(e))
